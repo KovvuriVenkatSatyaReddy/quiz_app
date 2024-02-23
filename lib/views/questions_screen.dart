@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quiz_app/controller/theme_controller.dart';
 import 'package:quiz_app/option_button.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app/theme/themes.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({required this.onSelectAnswer, super.key});
@@ -35,26 +38,32 @@ class _QuestionsScreen extends State<QuestionsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              currQuestion.text,
-              style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 71, 23, 130),
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            GetBuilder<ThemeController>(
+              builder: (controller) => Text(
+                currQuestion.text,
+                style: GoogleFonts.lato(
+                  color: controller.isDarkTheme == false
+                      ? AppTheme().lightTheme.colorScheme.primary
+                      : AppTheme().darkTheme.colorScheme.onPrimary,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 30,
             ),
-            ...currQuestion.getShuffledAnswers().map((option) {
-              return AnswerButton(
-                answerText: option,
-                onTap: () {
-                  answerQuestion(option);
-                },
-              );
-            }),
+            ...currQuestion.getShuffledAnswers().map(
+              (option) {
+                return AnswerButton(
+                  answerText: option,
+                  onTap: () {
+                    answerQuestion(option);
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

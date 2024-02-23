@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary.dart';
+import 'package:quiz_app/theme/themes.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen(
@@ -45,8 +46,11 @@ class ResultsScreen extends StatelessWidget {
             Text(
               'You answered $numOfCorrectQuestion out of $numOfQuestion questions correctly',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 71, 23, 130),
+              style: TextStyle(
+                color: MediaQuery.of(context).platformBrightness ==
+                        Brightness.light
+                    ? AppTheme().lightTheme.colorScheme.primary
+                    : AppTheme().darkTheme.colorScheme.onPrimary,
                 fontSize: 20,
               ),
             ),
@@ -59,14 +63,20 @@ class ResultsScreen extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: restartQuiz,
-              icon: const Icon(
+              icon: Icon(
                 Icons.cached,
-                color: Color.fromARGB(255, 71, 23, 130),
+                color: MediaQuery.of(context).platformBrightness ==
+                        Brightness.light
+                    ? AppTheme().lightTheme.colorScheme.primary
+                    : AppTheme().darkTheme.colorScheme.onPrimary,
               ),
-              label: const Text(
+              label: Text(
                 'Restart Quiz',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 71, 23, 130),
+                  color: MediaQuery.of(context).platformBrightness ==
+                          Brightness.light
+                      ? AppTheme().lightTheme.colorScheme.primary
+                      : AppTheme().darkTheme.colorScheme.onPrimary,
                 ),
               ),
             ),

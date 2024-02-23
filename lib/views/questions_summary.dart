@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/theme/themes.dart';
 
 class QuestionSummary extends StatelessWidget {
   const QuestionSummary({super.key, required this.summaryData});
@@ -7,6 +8,7 @@ class QuestionSummary extends StatelessWidget {
   @override
   Widget build(context) {
     return SizedBox(
+      width: double.infinity,
       height: 400,
       child: SingleChildScrollView(
         child: Column(
@@ -37,8 +39,11 @@ class QuestionSummary extends StatelessWidget {
                     children: [
                       Text(
                         data['question'] as String,
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 71, 23, 130),
+                        style: TextStyle(
+                          color: MediaQuery.of(context).platformBrightness ==
+                                  Brightness.light
+                              ? AppTheme().lightTheme.colorScheme.primary
+                              : AppTheme().darkTheme.colorScheme.onPrimary,
                           fontSize: 18,
                         ),
                       ),
